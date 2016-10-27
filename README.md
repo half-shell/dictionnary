@@ -17,3 +17,4 @@ Pour compiler le programme, il suffit de faire un:
 ```
 $ gcc src/*.c -o dict.exe
 ```
+Le dictionnaire utilisé doit être précisé comme argument lors du lancement du programme.
