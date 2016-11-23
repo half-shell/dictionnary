@@ -15,6 +15,8 @@ Ce projet applique les conventions de codage de l'ESGI.
 ## Compilation
 Pour compiler le programme, il suffit de faire un:
 ```
-$ gcc src/*.c -o dict.exe
+$ make build
+# si un test.c existe à la racine:
+$ make test
 ```
 Le dictionnaire utilisé doit être précisé comme argument lors du lancement du programme.
