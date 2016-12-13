@@ -14,7 +14,7 @@ Ce projet applique les conventions de codage de l'ESGI.
 
 ## Compilation
 Pour compiler le programme, il suffit de faire un:
-```
+```Bash
 $ make build
 # si un test.c existe à la racine:
 $ make test

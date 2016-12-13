@@ -33,6 +33,71 @@ double count_words(FILE *dictionary){
 
 void add_entry(FILE *dictionary, char *word){
 
+    char c;
+    int i = 0;
+    fpos_t pos;
+    char *compare;
+
+    do{
+        c = getc(dictionary);
+        compare[i] = c;
+
+        if(word[i] == '\0' || word[i] < compare[i] || feof(dictionary)){
+            break;
+        }
+
+        if(word[i] > compare[i]){
+            while(c != '\n'){
+                c = getc(dictionary);
+                i++;
+            }
+        }
+
+        if(c == '\n'){
+            for(; i > 0; --i){
+                compare[i] = '\0';
+            }
+            i = -1;
+        }
+        ++i;
+    } while(!feof(dictionary));
+    fgetpos(dictionary, &pos);
+}
+
+int check_entry(FILE *dictionary, char *word){
+    char c;
+    int i = 0;
+    fpos_t pos;
+    char *compare;
+
+    do{
+        c = getc(dictionary);
+        compare[i] = c;
+
+        if(word[i] == '\0' && word[i-1] == compare[i-1]){
+            return 1;
+        }
+
+        if(word[i] == '\0' || word[i] < compare[i] || feof(dictionary)){
+            break;
+        }
+
+        if(word[i] > compare[i]){
+            while(c != '\n'){
+                c = getc(dictionary);
+                i++;
+            }
+        }
+
+        if(c == '\n'){
+            for(; i > 0; --i){
+                compare[i] = '\0';
+            }
+            i = -1;
+        }
+        ++i;
+    } while(!feof(dictionary));
+    return 0;
 }
 
 void create_dictionary(char *filename, FILE *dictionary){
