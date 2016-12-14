@@ -74,19 +74,9 @@ int check_entry(FILE *dictionary, char *word){
         c = getc(dictionary);
         compare[i] = c;
 
+        //Si le mot donnee et dans le dico sont pareils
         if(word[i] == '\0' && word[i-1] == compare[i-1]){
             return 1;
-        }
-
-        if(word[i] == '\0' || word[i] < compare[i] || feof(dictionary)){
-            break;
-        }
-
-        if(word[i] > compare[i]){
-            while(c != '\n'){
-                c = getc(dictionary);
-                i++;
-            }
         }
 
         if(c == '\n'){
@@ -102,7 +92,7 @@ int check_entry(FILE *dictionary, char *word){
 
 void create_dictionary(char *filename, FILE *dictionary){
     fclose(dictionary);
-    dictionary = fopen(filename, "w");
+    dictionary = fopen(filename, "wr");
 }
 
 void insert_into_dictionary(FILE *dictionary, int position, char *word){

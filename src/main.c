@@ -8,15 +8,21 @@
 #include "menu.h"
 
 /*
- * Functions
- */
+ * Functions*/
+
 int main(int argc, char *argv[]){
-    int choice = 1;
-    if(argv[1]){
-        FILE *dictionnary = fopen(argv[1], "rw");
-        if(dictionnary){
-            main_loop(&choice, dictionnary);
-        } 
-        fclose(dictionnary);
+
+    char fileName[256];
+    printf("Path du dictionnaire? \n");
+    scanf("%s", fileName);
+    FILE *dictionnary = fopen(fileName, "rw");
+
+    if(dictionnary){
+        int choice = 1;
+        main_loop(&choice, dictionnary);
     }
+
+    fclose(dictionnary);
+
+    return 0;
 }
