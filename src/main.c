@@ -12,8 +12,9 @@
 
 int main(int argc, char *argv[]){
 
-    char fileName[256];
-    printf("Path du dictionnaire? \n");
+    char fileName[255];
+    display_header("programme dictionnaire");
+    printf("Veuillez rentrer le chemin d'un dictionnaire: \n");
     scanf("%s", fileName);
     FILE *dictionnary = fopen(fileName, "rw");
 

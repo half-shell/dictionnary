@@ -37,7 +37,7 @@ int add_entry(FILE *dictionary, char *word){
     int pos = 0;
     char compare[255];
 
-    if(check_entry(dictionary, word)){
+    if(!check_entry(dictionary, word)){
         while((c = fgetc(dictionary)) != EOF){
             ++pos;
             compare[i] = c;
@@ -67,6 +67,8 @@ int add_entry(FILE *dictionary, char *word){
         insert_into_dictionary(dictionary, pos, word);
         rewind(dictionary);
         return 1;
+    } else {
+        return 0;
     }
 }
 
@@ -98,7 +100,7 @@ int check_entry(FILE *dictionary, char *word){
 
 void create_dictionary(char *filename, FILE *dictionary){
     fclose(dictionary);
-    dictionary = fopen(filename, "wr");
+    dictionary = fopen(filename, "rw");
 }
 
 void insert_into_dictionary(FILE *dictionary, int position, char *word){
