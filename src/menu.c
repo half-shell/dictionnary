@@ -30,10 +30,10 @@ void main_loop(int *menu_code, FILE *dictionnary){
             printf("\nQuel est le mot a chercher? : ");
             scanf("%s", utile);
             if (check_entry(dictionnary, utile) == 0){
-                printf("\nle mot n'est pas dans le dictionnaire");
+                printf("\nle mot n'est pas dans le dictionnaire\n");
             }
             else{
-                printf("\nle mot donne est correctement orthographie");
+                printf("\nle mot donne est correctement orthographie\n");
             }
             printf("Entrez 1 pour revenir au menu: ");
             scanf("%i", menu_code);
