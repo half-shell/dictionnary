@@ -20,7 +20,7 @@ double count_words(FILE *dictionary);
  * Adds the word provided in its place (alpĥabetically)in the dictionary.
  * Takes a pointer to a dictionary and a string as arguments.
  */
-void add_entry(FILE *dictionary, char *word);
+int add_entry(FILE *dictionary, char *word);
 
 /*
  * TODO

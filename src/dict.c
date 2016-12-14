@@ -30,43 +30,50 @@ double count_words(FILE *dictionary){
     return wordCount;
 }
 
-void add_entry(FILE *dictionary, char *word){
+int add_entry(FILE *dictionary, char *word){
 
     char c;
     int i = 0;
-    fpos_t pos;
-    char *compare;
+    int pos = 0;
+    char compare[255];
 
-    while((c = fgetc(dictionary)) != EOF){
-        compare[i] = c;
+    if(check_entry(dictionary, word)){
+        while((c = fgetc(dictionary)) != EOF){
+            ++pos;
+            compare[i] = c;
 
-        if(word[i] == '\0' || word[i] < compare[i] || feof(dictionary)){
-            break;
-        }
-
-        if(word[i] > compare[i]){
-            while(c != '\n'){
-                c = getc(dictionary);
-                i++;
+            if(word[i] < compare[i]){
+                pos -= i + 1;
+                break;
             }
-        }
 
-        if(c == '\n'){
-            for(; i > 0; --i){
-                compare[i] = '\0';
+            if(word[i] > compare[i]){
+                while(c != '\n'){
+                    c = getc(dictionary);
+                    ++pos;
+                    ++i;
+                }
             }
-            i = -1;
+
+            if(c == '\n'){
+                for(; i >= 0; --i){
+                    compare[i] = '\0';
+                }
+                i = -1;
+            }
+            ++i;
         }
-        ++i;
+        rewind(dictionary);
+        insert_into_dictionary(dictionary, pos, word);
+        rewind(dictionary);
+        return 1;
     }
-    rewind(dictionary);
 }
 
 int check_entry(FILE *dictionary, char *word){
     char c;
     int i = 0;
-    fpos_t pos;
-    char *compare;
+    char compare[255];
 
     while((c = getc(dictionary)) != EOF){
         compare[i] = c;
@@ -78,12 +85,12 @@ int check_entry(FILE *dictionary, char *word){
         }
 
         if(c == '\n'){
-            for(; i > 0; --i){
+            for(; i >= 0; --i){
                 compare[i] = '\0';
             }
             i = -1;
         }
-        ++i;
+        i++;
     }
     rewind(dictionary);
     return 0;
@@ -97,20 +104,16 @@ void create_dictionary(char *filename, FILE *dictionary){
 void insert_into_dictionary(FILE *dictionary, int position, char *word){
     FILE *tmpDico;
 
-    if(dictionary = fopen("./dictionnaire/dico", "r")){
-
         if(tmpDico = fopen("./dictionnaire/dico.swp", "w")) {
 
             int i;
-            int pos = 17;
             char c;
-            char *word = "changer";
 
-            for(i = 0; i <pos; ++i){
+            for(i = 0; i <position; ++i){
                 c = fgetc(dictionary);
                 fputc(c, tmpDico);
             }
-            
+
             fputs(word, tmpDico);
             fputc('\n', tmpDico);
 
@@ -123,8 +126,7 @@ void insert_into_dictionary(FILE *dictionary, int position, char *word){
             remove("./dictionnaire/dico");
 
             rename("./dictionnaire/dico.swp", "./dictionnaire/dico");
+            rewind(dictionary);
 
-        }
-        fclose(dictionary);
     }
 }
