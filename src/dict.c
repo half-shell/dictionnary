@@ -38,8 +38,7 @@ void add_entry(FILE *dictionary, char *word){
     fpos_t pos;
     char *compare;
 
-    do{
-        c = getc(dictionary);
+    while((c = fgetc(dictionary)) != EOF){
         compare[i] = c;
 
         if(word[i] == '\0' || word[i] < compare[i] || feof(dictionary)){
@@ -60,8 +59,8 @@ void add_entry(FILE *dictionary, char *word){
             i = -1;
         }
         ++i;
-    } while(!feof(dictionary));
-    fgetpos(dictionary, &pos);
+    }
+    rewind(dictionary);
 }
 
 int check_entry(FILE *dictionary, char *word){
@@ -70,12 +69,12 @@ int check_entry(FILE *dictionary, char *word){
     fpos_t pos;
     char *compare;
 
-    do{
-        c = getc(dictionary);
+    while((c = getc(dictionary)) != EOF){
         compare[i] = c;
 
         //Si le mot donnee et dans le dico sont pareils
         if(word[i] == '\0' && word[i-1] == compare[i-1]){
+            rewind(dictionary);
             return 1;
         }
 
@@ -86,7 +85,8 @@ int check_entry(FILE *dictionary, char *word){
             i = -1;
         }
         ++i;
-    } while(!feof(dictionary));
+    }
+    rewind(dictionary);
     return 0;
 }
 
