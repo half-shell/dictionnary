@@ -1,4 +1,9 @@
 /*
+ * Assign a file pointer
+ */
+FILE *dictionary;
+
+/*
  * Takes a pointer to a file in argument.
  * Returns the number of characters it contains.
  */
@@ -30,3 +35,8 @@ int check_entry(FILE *dictionary, char *word);
  * Takes the name of the new dicitonnary and the pointer to the old one as an argument.
  */
 void create_dictionary(char *filename, FILE *dictionary);
+
+/*
+ * create and fills a temporary dictionary
+ */
+void insert_into_dictionary(FILE *dictionary, int position, char *word);

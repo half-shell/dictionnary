@@ -104,3 +104,38 @@ void create_dictionary(char *filename, FILE *dictionary){
     fclose(dictionary);
     dictionary = fopen(filename, "w");
 }
+
+void insert_into_dictionary(FILE *dictionary, int position, char *word){
+    FILE *tmpDico;
+
+    if(dictionary = fopen("./dictionnaire/dico", "r")){
+
+        if(tmpDico = fopen("./dictionnaire/dico.swp", "w")) {
+
+            int i;
+            int pos = 17;
+            char c;
+            char *word = "changer";
+
+            for(i = 0; i <pos; ++i){
+                c = fgetc(dictionary);
+                fputc(c, tmpDico);
+            }
+            
+            fputs(word, tmpDico);
+            fputc('\n', tmpDico);
+
+            while((c = fgetc(dictionary)) != EOF){
+                fputc(c, tmpDico);
+            }
+
+            dictionary = tmpDico;
+
+            remove("./dictionnaire/dico");
+
+            rename("./dictionnaire/dico.swp", "./dictionnaire/dico");
+
+        }
+        fclose(dictionary);
+    }
+}
