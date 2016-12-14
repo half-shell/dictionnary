@@ -7,8 +7,7 @@ double count_chars(FILE *dictionary){
     double charCount = 0;
     char c;
 
-    while(!feof(dictionary)){
-        c = getc(dictionary);
+    while((c = fgetc(dictionary)) != EOF){
         charCount++;
     }
     rewind(dictionary);
@@ -20,12 +19,12 @@ double count_words(FILE *dictionary){
     double wordCount = 0;
     char c;
 
-    while(!feof(dictionary)){
-        c = getc(dictionary);
+    while((c = fgetc(dictionary)) != EOF){
         if((c) == '\n'){
             wordCount++;
         }
     }
+
     rewind(dictionary);
 
     return wordCount;
