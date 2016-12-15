@@ -45,7 +45,7 @@ void main_loop(int *menu_code, FILE *dictionnary){
             break;
         case 4:
             display_header("Autre dictionnaire");
-            printf("\nPath du nouveau dico : ");
+            printf("\nRentrez le chemin d'un nouveau dictionnaire: ");
             scanf("%s", &word);
             create_dictionary(word, dictionnary);
             printf("\nEntrez 1 pour revenir au menu: ");
